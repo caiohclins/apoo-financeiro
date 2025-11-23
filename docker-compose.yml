@@ -27,7 +27,7 @@ services:
         max_attempts: 3
       placement:
         constraints:
-          - node.role == manager
+          - node.hostname == node1
 
   keycloak:
     image: caiohclins/apoo-financeiro-keycloak:latest

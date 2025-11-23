@@ -2,6 +2,7 @@ services:
   postgres:
     build:
       context: ./postgres
+    image: caiohclins/apoo-financeiro-postgres:latest
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -27,6 +28,7 @@ services:
   keycloak:
     build:
       context: ./keycloak
+    image: caiohclins/apoo-financeiro-keycloak:latest
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -34,9 +36,9 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres:5432/${KEYCLOAK_DB} 
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME_STRICT: "false"
-      KC_HTTP_ENABLED: "true"
-      KC_HEALTH_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false" 
+      KC_HTTP_ENABLED: "true"     
+      KC_HEALTH_ENABLED: "true"   
     ports:
       - "8080:8080"
     networks:
@@ -54,6 +56,7 @@ services:
   gestaoacesso:
     build:
       context: ./gestaoacesso
+    image: caiohclins/apoo-financeiro-gestaoacesso:latest
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${FINANCIAL_DB}
@@ -67,7 +70,7 @@ services:
     networks:
       - sistema-financeiro-network
     deploy:
-      replicas: 3 
+      replicas: 3
       restart_policy:
         condition: on-failure
         delay: 30s
@@ -76,7 +79,6 @@ services:
         constraints:
           - node.role == worker
           
-  # 4. Serviço Visualizer (Adicionado)
   visualizer:
     image: dockersamples/visualizer:stable
     ports:

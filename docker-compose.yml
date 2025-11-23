@@ -1,83 +1,36 @@
 services:
   postgres:
-    build:
-      context: ./postgres
     image: caiohclins/apoo-financeiro-postgres:latest
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - sistema-financeiro-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     deploy:
       replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
+      placement:
+        constraints: [ node.role == worker ]
 
   keycloak:
-    build:
-      context: ./keycloak
     image: caiohclins/apoo-financeiro-keycloak:latest
-    environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/${KEYCLOAK_DB} 
-      KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME_STRICT: "false" 
-      KC_HTTP_ENABLED: "true"     
-      KC_HEALTH_ENABLED: "true"   
     ports:
       - "8080:8080"
-    networks:
-      - sistema-financeiro-network
     deploy:
       replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
       placement:
-        constraints:
-          - node.role == worker
+        constraints: [ node.role == worker ]
 
   gestaoacesso:
     build:
       context: ./gestaoacesso
     image: caiohclins/apoo-financeiro-gestaoacesso:latest
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${FINANCIAL_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      FINANCIAL_DB: ${FINANCIAL_DB}
-      KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8080
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
     ports:
       - "8081:8081"
     networks:
       - sistema-financeiro-network
     deploy:
       replicas: 3
-      restart_policy:
-        condition: on-failure
-        delay: 30s
-        max_attempts: 3
       placement:
-        constraints:
-          - node.role == worker
+        constraints: [ node.role == worker ]
           
   visualizer:
     image: dockersamples/visualizer:stable

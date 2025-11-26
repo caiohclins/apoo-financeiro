@@ -44,4 +44,9 @@ public class ControladorAutenticacao {
                     .body(Map.of("error", "Falha na autenticação", "message", e.getMessage()));
         }
     }
+
+    @GetMapping("/test-login")
+    public ResponseEntity<?> testarLogin(@RequestParam String u, @RequestParam String p) {
+        return ResponseEntity.ok("Login bem-sucedido para o usuário: " + u);
+    }
 }

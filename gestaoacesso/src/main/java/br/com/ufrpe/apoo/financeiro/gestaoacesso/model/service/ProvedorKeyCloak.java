@@ -95,11 +95,21 @@ public class ProvedorKeyCloak implements IProvedorIdentidade {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
-        ResponseEntity<Map> response = restTemplate.postForEntity(tokenUri, request, Map.class);
-        Map<String, Object> responseBody = response.getBody();
-        if (responseBody == null || !responseBody.containsKey("access_token")) {
-            throw new RuntimeException("Não foi possível obter admin token do Keycloak.");
+        System.out.println("=== DEBUG: Obtendo admin token ===");
+        System.out.println("Token URI: " + tokenUri);
+        System.out.println("Admin Client ID: " + adminClientId);
+        System.out.println("Admin Client Secret está definido: " + (adminClientSecret != null && !adminClientSecret.isEmpty()));
+
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(tokenUri, request, Map.class);
+            Map<String, Object> responseBody = response.getBody();
+            if (responseBody == null || !responseBody.containsKey("access_token")) {
+                throw new RuntimeException("Não foi possível obter admin token do Keycloak.");
+            }
+            return (String) responseBody.get("access_token");
+        } catch (Exception e) {
+            System.out.println("Erro ao obter admin token: " + e.getMessage());
+            throw e;
         }
-        return (String) responseBody.get("access_token");
     }
 }

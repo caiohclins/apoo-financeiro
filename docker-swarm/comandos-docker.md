@@ -11,3 +11,4 @@
 # Util
 > export $(cat .env | xargs)
 > git clone https://github.com/caiohclins/apoo-financeiro.git
+> https://hub.docker.com/repositories/caiohclins

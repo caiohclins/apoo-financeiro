@@ -1,6 +1,18 @@
-version: "3.9"
-
 services:
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8888:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - sistema-financeiro-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
 
   postgres:
     image: caiohclins/apoo-financeiro-postgres:latest
@@ -80,20 +92,6 @@ services:
       placement:
         constraints:
           - node.role == worker
-
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - "8888:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      - sistema-financeiro-network
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
 
 volumes:
   postgres_data:

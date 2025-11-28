@@ -1,21 +1,8 @@
 services:
-
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - "8888:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      - sistema-financeiro-network
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
-
   postgres:
-    image: caiohclins/apoo-financeiro-postgres:latest
+    build:
+      context: ./postgres
+    container_name: sistema-financeiro-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -27,75 +14,125 @@ services:
     networks:
       - sistema-financeiro-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-      placement:
-        constraints:
-          - node.hostname == node1
 
   keycloak:
-    image: caiohclins/apoo-financeiro-keycloak:latest
+    build:
+      context: ./keycloak
+    container_name: sistema-financeiro-keycloak
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/${KEYCLOAK_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
     ports:
       - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - sistema-financeiro-network
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 20s
-        max_attempts: 3
-      placement:
-        constraints:
-          - node.role == worker
 
-  gestaoacesso:
-    image: caiohclins/apoo-financeiro-gestaoacesso:latest
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${FINANCIAL_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      FINANCIAL_DB: ${FINANCIAL_DB}
-      KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8080
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+  discovery:
+    build:
+      context: ./discovery
+    container_name: sistema-financeiro-discovery
     ports:
-      - "8081:8081"
+      - "8761:8761"
     networks:
       - sistema-financeiro-network
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-        delay: 30s
-        max_attempts: 3
-      placement:
-        constraints:
-          - node.role == worker
+
+  gateway:
+    build:
+      context: ./gateway
+    container_name: sistema-financeiro-gateway
+    environment:
+      GATEWAY_PORT: ${GATEWAY_PORT}
+      DISCOVERY_HOST: discovery
+    ports:
+      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
+    depends_on:
+      - discovery
+    networks:
+      - sistema-financeiro-network
+
+  identidade:
+    build:
+      context: ./identidade
+    container_name: sistema-financeiro-identidade
+    environment:
+      GESTAOACESSO_PORT: ${GESTAOACESSO_PORT}
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_HOST: keycloak
+      DISCOVERY_HOST: discovery
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+      discovery:
+        condition: service_started
+    networks:
+      - sistema-financeiro-network
+
+  financeiro:
+    build:
+      context: ./financeiro
+    container_name: sistema-financeiro-financeiro
+    environment:
+      POSTGRES_HOST: postgres
+      FINANCIAL_DB: ${FINANCIAL_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_HOST: keycloak
+      DISCOVERY_HOST: discovery
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+      discovery:
+        condition: service_started
+    networks:
+      - sistema-financeiro-network
+
+  credito:
+    build:
+      context: ./credito
+    container_name: sistema-financeiro-credito
+    environment:
+      POSTGRES_HOST: postgres
+      FINANCIAL_DB: ${FINANCIAL_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_HOST: keycloak
+      DISCOVERY_HOST: discovery
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+      discovery:
+        condition: service_started
+    networks:
+      - sistema-financeiro-network
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
   sistema-financeiro-network:
-    driver: overlay
+    driver: bridge

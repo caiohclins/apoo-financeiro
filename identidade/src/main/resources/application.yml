@@ -1,0 +1,32 @@
+server:
+  port: ${GESTAOACESSO_PORT:8081}
+
+spring:
+  application:
+    name: identidade
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DB:financial_db}
+    username: ${POSTGRES_USER:postgres_admin}
+    password: ${POSTGRES_PASSWORD:postgres_secure_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${KEYCLOAK_HOST:localhost}:8080/realms/financeiro
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST:localhost}:8761/eureka/
+
+keycloak:
+  auth-server-url: http://${KEYCLOAK_HOST:localhost}:8080
+  realm: financeiro
+  resource: backend-admin
+  credentials:
+    secret: ${KEYCLOAK_CLIENT_SECRET:T17XKoEXqL5mZXYpDYwIPby7VK68jyNe}
+  admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:backend-admin}
+  admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET:T17XKoEXqL5mZXYpDYwIPby7VK68jyNe}

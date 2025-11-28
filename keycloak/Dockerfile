@@ -24,6 +24,9 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:22.0.1
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
+# Copy realm import file
+COPY realm-export.json /opt/keycloak/data/import/realm-export.json
+
 # change these values to point to a running postgres instance
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
@@ -37,4 +40,4 @@ ENV KC_PROXY_MODE=edge
 ENV KC_DB_URL_PROPERTIES="?allowPublicKeyRetrieval=true&useSSL=false"
 ENV KC_FEATURES='declarative-user-profile'
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--verbose" ,"start", "--optimized" ]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--verbose" ,"start", "--optimized", "--import-realm"]

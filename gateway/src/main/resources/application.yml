@@ -1,0 +1,36 @@
+server:
+  port: ${GATEWAY_PORT:8888}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        - id: identidade
+          uri: lb://IDENTIDADE
+          predicates:
+            - Path=/identidade/**
+          filters:
+            - StripPrefix=1
+        - id: financeiro
+          uri: lb://FINANCEIRO
+          predicates:
+            - Path=/financeiro/**
+          filters:
+            - StripPrefix=1
+        - id: credito
+          uri: lb://CREDITO
+          predicates:
+            - Path=/credito/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST:localhost}:8761/eureka/

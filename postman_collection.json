@@ -15,7 +15,7 @@
                         "header": [],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Usuario Teste\",\n    \"email\": \"teste@example.com\"\n}",
+                            "raw": "{\n    \"nome\": \"Usuario Teste\",\n    \"email\": \"teste@example.com\",\n    \"senha\": \"123456\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -23,19 +23,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{gateway_url}}/identidade/usuarios?senha=123456",
+                            "raw": "{{gateway_url}}/identidade/usuarios",
                             "host": [
                                 "{{gateway_url}}"
                             ],
                             "path": [
                                 "identidade",
                                 "usuarios"
-                            ],
-                            "query": [
-                                {
-                                    "key": "senha",
-                                    "value": "123456"
-                                }
                             ]
                         }
                     },
@@ -58,24 +52,23 @@
                     "request": {
                         "method": "POST",
                         "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"teste@example.com\",\n    \"senha\": \"123456\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
                         "url": {
-                            "raw": "{{gateway_url}}/identidade/login?email=teste@example.com&senha=123456",
+                            "raw": "{{gateway_url}}/identidade/login",
                             "host": [
                                 "{{gateway_url}}"
                             ],
                             "path": [
                                 "identidade",
                                 "login"
-                            ],
-                            "query": [
-                                {
-                                    "key": "email",
-                                    "value": "teste@example.com"
-                                },
-                                {
-                                    "key": "senha",
-                                    "value": "123456"
-                                }
                             ]
                         }
                     },

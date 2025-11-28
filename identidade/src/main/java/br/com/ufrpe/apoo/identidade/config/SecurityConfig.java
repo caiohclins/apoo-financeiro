@@ -13,8 +13,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for public endpoints if needed, though not recommended for
-                                              // browser-based flows. For API it's often disabled.
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/usuarios", "/login").permitAll()
                         .anyRequest().authenticated())

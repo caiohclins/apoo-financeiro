@@ -4,9 +4,10 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ufrpe.apoo.identidade.dto.LoginDTO;
+import br.com.ufrpe.apoo.identidade.dto.UsuarioDTO;
 import br.com.ufrpe.apoo.identidade.adapter.IProvedorIdentidade;
 import br.com.ufrpe.apoo.identidade.dominio.Usuario;
 
@@ -23,15 +24,19 @@ public class IdentidadeController {
     }
 
     @PostMapping("/usuarios")
-    public String criarUsuario(@RequestBody Usuario usuario, @RequestParam String senha) {
-        String keycloakId = provedorIdentidade.criarUsuario(usuario, senha);
+    public String criarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setEmail(usuarioDTO.getEmail());
+
+        String keycloakId = provedorIdentidade.criarUsuario(usuario, usuarioDTO.getSenha());
         usuario.setKeycloakId(keycloakId);
         usuarioRepository.save(usuario);
         return keycloakId;
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestParam String email, @RequestParam String senha) {
-        return provedorIdentidade.login(email, senha);
+    public Map<String, Object> login(@RequestBody LoginDTO loginDTO) {
+        return provedorIdentidade.login(loginDTO.getEmail(), loginDTO.getSenha());
     }
 }

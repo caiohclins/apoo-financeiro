@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.List;
 
 @Component
+@SuppressWarnings("unchecked")
 public class ProvedorKeycloakAdapter implements IProvedorIdentidade {
 
     @Value("${keycloak.auth-server-url}")

@@ -16,7 +16,7 @@ public class Cartao {
     private String numero;
     private Double limite;
     private String usuarioId;
-    private LocalDate dataVencimento;
+    private int diaVencimentoFatura;
     private int melhorDiaCompra;
 
     public Long getId() {
@@ -59,12 +59,12 @@ public class Cartao {
         this.usuarioId = usuarioId;
     }
 
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
+    public int getDiaVencimentoFatura() {
+        return diaVencimentoFatura;
     }
 
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setDiaVencimentoFatura(int diaVencimentoFatura) {
+        this.diaVencimentoFatura = diaVencimentoFatura;
     }
 
     public int getMelhorDiaCompra() {

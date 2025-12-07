@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufrpe.apoo.financeiro.dominio.Lancamento;
+import br.com.ufrpe.apoo.financeiro.dominio.Tag;
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class FinanceiroController {
 
     private final br.com.ufrpe.apoo.financeiro.repositorio.LancamentoRepository lancamentoRepository;
+    private final br.com.ufrpe.apoo.financeiro.repositorio.TagRepository tagRepository;
 
-    public FinanceiroController(br.com.ufrpe.apoo.financeiro.repositorio.LancamentoRepository lancamentoRepository) {
+    public FinanceiroController(br.com.ufrpe.apoo.financeiro.repositorio.LancamentoRepository lancamentoRepository,
+            br.com.ufrpe.apoo.financeiro.repositorio.TagRepository tagRepository) {
         this.lancamentoRepository = lancamentoRepository;
+        this.tagRepository = tagRepository;
     }
 
     @GetMapping("/lancamentos")
@@ -32,6 +36,12 @@ public class FinanceiroController {
     @PostMapping("/lancamentos")
     public Lancamento criarLancamento(@RequestBody Lancamento lancamento, JwtAuthenticationToken token) {
         lancamento.setUsuarioId(token.getToken().getSubject());
+
+        if (lancamento.getTagIds() != null && !lancamento.getTagIds().isEmpty()) {
+            List<Tag> tags = tagRepository.findAllById(lancamento.getTagIds());
+            lancamento.setTags(tags);
+        }
+
         return lancamentoRepository.save(lancamento);
     }
 

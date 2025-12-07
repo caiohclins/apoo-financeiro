@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Lancamento {
@@ -26,6 +27,9 @@ public class Lancamento {
 
     @ManyToMany
     private List<Tag> tags;
+
+    @Transient
+    private List<Long> tagIds;
 
     public Long getId() {
         return id;
@@ -113,6 +117,14 @@ public class Lancamento {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<Long> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<Long> tagIds) {
+        this.tagIds = tagIds;
     }
 
 }

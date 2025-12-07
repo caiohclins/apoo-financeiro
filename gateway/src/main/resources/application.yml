@@ -15,20 +15,14 @@ spring:
           uri: lb://IDENTIDADE
           predicates:
             - Path=/identidade/**
-          filters:
-            - StripPrefix=1
         - id: financeiro
           uri: lb://FINANCEIRO
           predicates:
             - Path=/financeiro/**
-          filters:
-            - StripPrefix=1
         - id: credito
           uri: lb://CREDITO
           predicates:
             - Path=/credito/**
-          filters:
-            - StripPrefix=1
 
 eureka:
   client:

@@ -1,4 +1,6 @@
 server:
+  servlet:
+    context-path: /identidade
   port: ${GESTAOACESSO_PORT:8081}
 
 spring:

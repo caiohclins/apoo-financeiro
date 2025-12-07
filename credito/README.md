@@ -25,8 +25,11 @@ Este microserviço gerencia os produtos de crédito, especificamente **Cartões 
     -   `valorTotal`: Total a pagar.
     -   `fechada`: Status da fatura (aberta/fechada).
 
-### 🎮 Controladores (`controladores`)
--   **`CartaoController`**: Gerencia cartões e faturas. Aplica validações de segurança garantindo que o usuário manipule apenas seus próprios dados.
+### 🎮 Camadas
+-   **Service (`servico`)**: Lógica de negócio (`CartaoService`).
+-   **Controladores (`controladores`)**: `CartaoController`.
+-   **DTOs (`dto`)**: `CartaoRequestDTO`, `CartaoResponseDTO`, `FaturaRequestDTO`, `FaturaResponseDTO`.
+-   **Exceções (`excecao`)**: `RecursoNaoEncontradoException`, `AcessoNegadoException`.
 
 ## 🔒 Segurança
 Assim como no serviço Financeiro, utiliza **JWT Bearer Token** para autenticação e verificação de posse (`usuarioId`).

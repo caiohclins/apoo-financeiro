@@ -2,6 +2,7 @@ package br.com.ufrpe.apoo.financeiro.controladores;
 
 import java.util.List;
 
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,59 +10,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ufrpe.apoo.financeiro.dominio.Lancamento;
-import br.com.ufrpe.apoo.financeiro.dominio.Tag;
-
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import br.com.ufrpe.apoo.financeiro.dto.LancamentoRequestDTO;
+import br.com.ufrpe.apoo.financeiro.dto.LancamentoResponseDTO;
+import br.com.ufrpe.apoo.financeiro.servico.LancamentoService;
 
 @RestController
 public class FinanceiroController {
 
-    private final br.com.ufrpe.apoo.financeiro.repositorio.LancamentoRepository lancamentoRepository;
-    private final br.com.ufrpe.apoo.financeiro.repositorio.TagRepository tagRepository;
+    private final LancamentoService lancamentoService;
 
-    public FinanceiroController(br.com.ufrpe.apoo.financeiro.repositorio.LancamentoRepository lancamentoRepository,
-            br.com.ufrpe.apoo.financeiro.repositorio.TagRepository tagRepository) {
-        this.lancamentoRepository = lancamentoRepository;
-        this.tagRepository = tagRepository;
+    public FinanceiroController(LancamentoService lancamentoService) {
+        this.lancamentoService = lancamentoService;
     }
 
     @GetMapping("/lancamentos")
-    public List<Lancamento> listarLancamentos(JwtAuthenticationToken token) {
-        return lancamentoRepository.findByUsuarioId(token.getToken().getSubject());
+    public List<LancamentoResponseDTO> listarLancamentos(
+            JwtAuthenticationToken token) {
+        return lancamentoService.listarLancamentos(token.getToken().getSubject());
     }
 
     @PostMapping("/lancamentos")
-    public Lancamento criarLancamento(@RequestBody Lancamento lancamento, JwtAuthenticationToken token) {
-        lancamento.setUsuarioId(token.getToken().getSubject());
-
-        if (lancamento.getTagIds() != null && !lancamento.getTagIds().isEmpty()) {
-            List<Tag> tags = tagRepository.findAllById(lancamento.getTagIds());
-            lancamento.setTags(tags);
-        }
-
-        return lancamentoRepository.save(lancamento);
+    public LancamentoResponseDTO criarLancamento(
+            @RequestBody LancamentoRequestDTO lancamentoRequest,
+            JwtAuthenticationToken token) {
+        return lancamentoService.criarLancamento(lancamentoRequest, token.getToken().getSubject());
     }
 
     @GetMapping("/lancamentos/{id}")
-    public Lancamento buscarLancamento(@PathVariable Long id, JwtAuthenticationToken token) {
-        Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
-        if (lancamento != null && !lancamento.getUsuarioId().equals(token.getToken().getSubject())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acesso negado");
-        }
-        return lancamento;
+    public LancamentoResponseDTO buscarLancamento(@PathVariable Long id,
+            JwtAuthenticationToken token) {
+        return lancamentoService.buscarLancamento(id, token.getToken().getSubject());
     }
 
     @DeleteMapping("/lancamentos/{id}")
     public void deletarLancamento(@PathVariable Long id, JwtAuthenticationToken token) {
-        Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
-        if (lancamento != null) {
-            if (!lancamento.getUsuarioId().equals(token.getToken().getSubject())) {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acesso negado");
-            }
-            lancamentoRepository.deleteById(id);
-        }
+        lancamentoService.deletarLancamento(id, token.getToken().getSubject());
     }
 }

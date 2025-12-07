@@ -24,8 +24,11 @@ Este microserviço é o núcleo do controle orçamentário pessoal. Ele gerencia
     -   `nome`: Ex: "Alimentação", "Transporte".
     -   `cor`: Código de cor para UI.
 
-### 🎮 Controladores (`controladores`)
--   **`FinanceiroController`**: Gerencia operações de CRUD para lançamentos. Implementa segurança a nível de método validando se o recurso pertence ao usuário autenticado.
+### 🎮 Camadas
+-   **Service (`servico`)**: Lógica de negócio (`LancamentoService`, `TagService`). Gerencia transações e regras de tags.
+-   **Controladores (`controladores`)**: `FinanceiroController`, `TagController`.
+-   **DTOs (`dto`)**: `LancamentoRequestDTO`, `LancamentoResponseDTO`, `TagRequestDTO`, `TagResponseDTO`.
+-   **Exceções (`excecao`)**: `RecursoNaoEncontradoException`, `AcessoNegadoException`.
 
 ## 🔒 Segurança e Autenticação
 Todos os endpoints são protegidos e requerem um **Token JWT** válido no header `Authorization`.
@@ -36,9 +39,13 @@ O serviço extrai o `sub` (Subject) do token para filtrar os dados, garantindo q
 | Método | Recurso | Descrição |
 | :--- | :--- | :--- |
 | `GET` | `/lancamentos` | Lista todos os lançamentos do usuário logado. |
-| `POST` | `/lancamentos` | Cria um novo lançamento. O `usuarioId` é inserido automaticamente via token. |
-| `GET` | `/lancamentos/{id}` | Busca detalhes de um lançamento, validando a posse. |
+| `POST` | `/lancamentos` | Cria um novo lançamento. Use `tagIds` para associar tags. |
+| `GET` | `/lancamentos/{id}` | Busca detalhes de um lançamento. |
 | `DELETE` | `/lancamentos/{id}` | Remove um lançamento. |
+| `GET` | `/tags` | Lista todas as tags. |
+| `POST` | `/tags` | Cria uma nova tag. |
+| `GET` | `/tags/{id}` | Busca uma tag por ID. |
+| `DELETE` | `/tags/{id}` | Remove uma tag por ID. |
 
 ### Exemplo de Payload (Criar Lançamento)
 ```json
@@ -47,9 +54,7 @@ O serviço extrai o `sub` (Subject) do token para filtrar os dados, garantindo q
     "valor": 350.00,
     "dataPagamento": "2023-11-20",
     "tipo": "DESPESA",
-    "tags": [
-        { "nome": "Alimentação" }
-    ]
+    "tagIds": [1, 5]
 }
 ```
 

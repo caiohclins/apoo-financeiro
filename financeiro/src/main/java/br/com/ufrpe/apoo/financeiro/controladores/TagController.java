@@ -1,41 +1,46 @@
 package br.com.ufrpe.apoo.financeiro.controladores;
 
-import br.com.ufrpe.apoo.financeiro.dominio.Tag;
-import br.com.ufrpe.apoo.financeiro.repositorio.TagRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.ufrpe.apoo.financeiro.dto.TagRequestDTO;
+import br.com.ufrpe.apoo.financeiro.dto.TagResponseDTO;
+import br.com.ufrpe.apoo.financeiro.servico.TagService;
 
 @RestController
 @RequestMapping("/tags")
 public class TagController {
 
-    private final TagRepository tagRepository;
+    private final TagService tagService;
 
-    public TagController(TagRepository tagRepository) {
-        this.tagRepository = tagRepository;
+    public TagController(TagService tagService) {
+        this.tagService = tagService;
     }
 
     @GetMapping
-    public List<Tag> listarTags() {
-        return tagRepository.findAll();
+    public List<TagResponseDTO> listarTags() {
+        return tagService.listarTags();
     }
 
     @PostMapping
-    public Tag criarTag(@RequestBody Tag tag) {
-        return tagRepository.save(tag);
+    public TagResponseDTO criarTag(@RequestBody TagRequestDTO dto) {
+        return tagService.criarTag(dto);
     }
 
     @GetMapping("/{id}")
-    public Tag buscarTag(@PathVariable Long id) {
-        return tagRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tag não encontrada"));
+    public TagResponseDTO buscarTag(@PathVariable Long id) {
+        return tagService.buscarTag(id);
     }
 
     @DeleteMapping("/{id}")
     public void deletarTag(@PathVariable Long id) {
-        tagRepository.deleteById(id);
+        tagService.deletarTag(id);
     }
 }

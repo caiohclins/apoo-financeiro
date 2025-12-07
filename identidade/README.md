@@ -17,11 +17,15 @@ Este serviço é responsável pelo **Gerenciamento de Identidade e Acesso** (IAM
     -   `email` (String): E-mail do usuário.
     -   `keycloakId` (String): UUID do usuário no Keycloak.
 
-### 🎮 Controladores (`controladores`)
--   **`IdentidadeController`**: Expõe endpoints para cadastro e login.
+### 🎮 Camadas
+-   **Service (`servico`)**: Contém a lógica de negócio (`UsuarioService`), encapsulando a comunicação com o Keycloak.
+-   **Controladores (`controladores`)**: Recebem DTOs e delegam para os serviços.
+-   **Adapters (`adapter`)**: `IProvedorIdentidade` para abstração do Keycloak.
+-   **DTOs (`dto`)**: Objetos para transferência de dados (`UsuarioDTO`, `LoginDTO`).
+-   **Exceções (`excecao`)**: Exceções de domínio (`RecursoNaoEncontradoException`, `RegraNegocioException`).
 
 ### 🔌 Adapters (`adapter`)
--   **`IProvedorIdentidade`**: Interface para comunicação com o provedor de identidade (implementado via Keycloak).
+-   **`IProvedorIdentidade`**: Interface para comunicação com o provedor de identidade.
 
 ## 🔌 API Endpoints
 

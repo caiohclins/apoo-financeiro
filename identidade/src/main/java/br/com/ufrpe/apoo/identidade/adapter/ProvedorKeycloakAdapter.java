@@ -1,18 +1,18 @@
 package br.com.ufrpe.apoo.identidade.adapter;
 
-import br.com.ufrpe.apoo.identidade.dominio.Usuario;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClient;
 
-import java.util.Map;
-import java.util.List;
+import br.com.ufrpe.apoo.identidade.dominio.Usuario;
 
 @Component
-@SuppressWarnings("unchecked")
 public class ProvedorKeycloakAdapter implements IProvedorIdentidade {
 
     @Value("${keycloak.auth-server-url}")

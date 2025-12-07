@@ -14,7 +14,7 @@ public class CalculoDespesas implements IEstrategiaCalculo {
                 .filter(l -> "DESPESA".equalsIgnoreCase(l.getTipo()))
                 .map(Lancamento::getValor)
                 .filter(valor -> valor != null)
-                .mapToDouble(Double::doubleValue)
+                .mapToDouble(v -> -v.doubleValue())
                 .sum();
     }
 }

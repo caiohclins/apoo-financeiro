@@ -116,7 +116,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"dataPagamento\": \"2023-10-27\",\n    \"numeroParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tags\": [\n        {\n            \"nome\": \"Alimentação\"\n        }\n    ]\n}",
+                            "raw": "{\n    \"nome\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"dataPagamento\": \"2023-10-27\",\n    \"numeroParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1, 5]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -185,6 +185,66 @@
                         }
                     },
                     "response": []
+                },
+                {
+                    "name": "Tags",
+                    "item": [
+                        {
+                            "name": "Listar Tags",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/tags",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "tags"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Criar Tag",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"nome\": \"Nova Tag\",\n    \"cor\": \"#FF5733\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/tags",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "tags"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -228,7 +288,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"dataVencimento\": \"2023-11-10\",\n    \"melhorDiaCompra\": 3\n}",
+                            "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"diaVencimentoFatura\": 10,\n    \"melhorDiaCompra\": 3\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

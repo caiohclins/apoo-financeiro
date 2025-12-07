@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class Lancamento {
@@ -17,6 +17,7 @@ public class Lancamento {
     private Long id;
     private String nome;
     private String descricao;
+    @Min(value = 0, message = "Valor deve ser maior ou igual a 0")
     private Double valor;
     private LocalDate dataPagamento;
     private int numeroParcelas;
@@ -27,9 +28,6 @@ public class Lancamento {
 
     @ManyToMany
     private List<Tag> tags;
-
-    @Transient
-    private List<Long> tagIds;
 
     public Long getId() {
         return id;
@@ -117,14 +115,6 @@ public class Lancamento {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    public List<Long> getTagIds() {
-        return tagIds;
-    }
-
-    public void setTagIds(List<Long> tagIds) {
-        this.tagIds = tagIds;
     }
 
 }

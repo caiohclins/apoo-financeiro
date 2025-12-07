@@ -8,35 +8,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufrpe.apoo.identidade.dto.LoginDTO;
 import br.com.ufrpe.apoo.identidade.dto.UsuarioDTO;
-import br.com.ufrpe.apoo.identidade.adapter.IProvedorIdentidade;
-import br.com.ufrpe.apoo.identidade.dominio.Usuario;
+import br.com.ufrpe.apoo.identidade.servico.UsuarioService;
 
 @RestController
 public class IdentidadeController {
 
-    private final IProvedorIdentidade provedorIdentidade;
-    private final br.com.ufrpe.apoo.identidade.repositorio.UsuarioRepository usuarioRepository;
+    private final UsuarioService usuarioService;
 
-    public IdentidadeController(IProvedorIdentidade provedorIdentidade,
-            br.com.ufrpe.apoo.identidade.repositorio.UsuarioRepository usuarioRepository) {
-        this.provedorIdentidade = provedorIdentidade;
-        this.usuarioRepository = usuarioRepository;
+    public IdentidadeController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/usuarios")
     public String criarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(usuarioDTO.getNome());
-        usuario.setEmail(usuarioDTO.getEmail());
-
-        String keycloakId = provedorIdentidade.criarUsuario(usuario, usuarioDTO.getSenha());
-        usuario.setKeycloakId(keycloakId);
-        usuarioRepository.save(usuario);
-        return keycloakId;
+        return usuarioService.criarUsuario(usuarioDTO);
     }
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginDTO loginDTO) {
-        return provedorIdentidade.login(loginDTO.getEmail(), loginDTO.getSenha());
+        return usuarioService.login(loginDTO);
     }
 }

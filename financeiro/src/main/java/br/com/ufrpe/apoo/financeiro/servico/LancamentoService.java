@@ -59,6 +59,34 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(lancamento);
     }
 
+    public LancamentoResponseDTO atualizarLancamento(Long id, LancamentoRequestDTO dto, String usuarioId) {
+        Lancamento lancamento = lancamentoRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Lançamento não encontrado"));
+
+        if (!lancamento.getUsuarioId().equals(usuarioId)) {
+            throw new AcessoNegadoException("Acesso negado");
+        }
+
+        lancamento.setNome(dto.nome());
+        lancamento.setDescricao(dto.descricao());
+        lancamento.setValor(dto.valor());
+        lancamento.setDataPagamento(dto.dataPagamento());
+        lancamento.setNumeroParcelas(dto.numeroParcelas());
+        lancamento.setRecorrente(dto.recorrente());
+        lancamento.setTipo(dto.tipo());
+        lancamento.setCartaoId(dto.cartaoId());
+
+        if (dto.tagIds() != null) {
+            List<Tag> tags = tagRepository.findAllById(dto.tagIds());
+            lancamento.setTags(tags);
+        } else {
+            lancamento.setTags(null);
+        }
+
+        lancamentoRepository.save(lancamento);
+        return lancamentoMapper.toDTO(lancamento);
+    }
+
     public void deletarLancamento(Long id, String usuarioId) {
         Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
         if (lancamento != null) {
@@ -67,5 +95,14 @@ public class LancamentoService {
             }
             lancamentoRepository.deleteById(id);
         }
+    }
+
+    public List<LancamentoResponseDTO> listarPorCartao(Long cartaoId, int mes, int ano) {
+        java.time.LocalDate inicio = java.time.LocalDate.of(ano, mes, 1);
+        java.time.LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
+
+        return lancamentoRepository.findByCartaoIdAndDataPagamentoBetween(cartaoId, inicio, fim).stream()
+                .map(lancamentoMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

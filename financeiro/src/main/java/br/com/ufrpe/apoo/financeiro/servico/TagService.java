@@ -42,6 +42,18 @@ public class TagService {
         return tagMapper.toDTO(tag);
     }
 
+    public TagResponseDTO atualizarTag(Long id, TagRequestDTO dto) {
+        Tag tag = tagRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Tag não encontrada"));
+
+        tag.setNome(dto.nome());
+        tag.setCor(dto.cor());
+
+        tagRepository.save(tag);
+        return tagMapper.toDTO(tag);
+    }
+
     public void deletarTag(Long id) {
         tagRepository.deleteById(id);
     }

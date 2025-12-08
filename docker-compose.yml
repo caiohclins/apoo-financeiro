@@ -119,6 +119,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_HOST: keycloak
       DISCOVERY_HOST: discovery
+      FINANCEIRO_HOST: financeiro
     depends_on:
       postgres:
         condition: service_healthy

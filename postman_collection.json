@@ -162,6 +162,40 @@
                     "response": []
                 },
                 {
+                    "name": "Atualizar Lancamento",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nome\": \"Compra Supermercado Editada\",\n    \"valor\": 200.00,\n    \"dataPagamento\": \"2023-10-28\",\n    \"numeroParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{gateway_url}}/financeiro/lancamentos/1",
+                            "host": [
+                                "{{gateway_url}}"
+                            ],
+                            "path": [
+                                "financeiro",
+                                "lancamentos",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
                     "name": "Deletar Lancamento",
                     "request": {
                         "method": "DELETE",
@@ -240,6 +274,39 @@
                                     "path": [
                                         "financeiro",
                                         "tags"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Atualizar Tag",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"nome\": \"Tag Editada\",\n    \"cor\": \"#000000\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/tags/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "tags",
+                                        "1"
                                     ]
                                 }
                             }
@@ -359,7 +426,41 @@
                     "response": []
                 },
                 {
-                    "name": "Listar Faturas do Cartao",
+                    "name": "Atualizar Cartao",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nome\": \"Nubank Editado\",\n    \"limite\": 6000.00,\n    \"diaVencimentoFatura\": 15,\n    \"melhorDiaCompra\": 5\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{gateway_url}}/credito/cartoes/1",
+                            "host": [
+                                "{{gateway_url}}"
+                            ],
+                            "path": [
+                                "credito",
+                                "cartoes",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gerar Fatura do Cartao",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -370,24 +471,33 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes/1/faturas",
+                            "raw": "{{gateway_url}}/credito/faturas/1?mes=12&ano=2025",
                             "host": [
                                 "{{gateway_url}}"
                             ],
                             "path": [
                                 "credito",
-                                "cartoes",
-                                "1",
-                                "faturas"
+                                "faturas",
+                                "1"
+                            ],
+                            "query": [
+                                {
+                                    "key": "mes",
+                                    "value": "12"
+                                },
+                                {
+                                    "key": "ano",
+                                    "value": "2025"
+                                }
                             ]
                         }
                     },
                     "response": []
                 },
                 {
-                    "name": "Criar Fatura para Cartao",
+                    "name": "Listar Todas Faturas (Mes/Ano)",
                     "request": {
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Authorization",
@@ -395,25 +505,24 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"dataVencimento\": \"2023-11-10\",\n    \"valorTotal\": 1200.50,\n    \"fechada\": false\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
                         "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes/1/faturas",
+                            "raw": "{{gateway_url}}/credito/faturas?mes=12&ano=2025",
                             "host": [
                                 "{{gateway_url}}"
                             ],
                             "path": [
                                 "credito",
-                                "cartoes",
-                                "1",
                                 "faturas"
+                            ],
+                            "query": [
+                                {
+                                    "key": "mes",
+                                    "value": "12"
+                                },
+                                {
+                                    "key": "ano",
+                                    "value": "2025"
+                                }
                             ]
                         }
                     },

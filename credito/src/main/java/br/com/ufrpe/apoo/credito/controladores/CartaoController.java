@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufrpe.apoo.credito.dto.CartaoRequestDTO;
 import br.com.ufrpe.apoo.credito.dto.CartaoResponseDTO;
-import br.com.ufrpe.apoo.credito.dto.FaturaRequestDTO;
-import br.com.ufrpe.apoo.credito.dto.FaturaResponseDTO;
 
 @RestController
 public class CartaoController {
@@ -35,16 +34,10 @@ public class CartaoController {
         return cartaoService.criarCartao(cartaoRequest, token.getToken().getSubject());
     }
 
-    @GetMapping("/cartoes/{id}/faturas")
-    public List<FaturaResponseDTO> listarFaturas(@PathVariable Long id,
-            JwtAuthenticationToken token) {
-        return cartaoService.listarFaturas(id, token.getToken().getSubject());
-    }
-
-    @PostMapping("/cartoes/{id}/faturas")
-    public FaturaResponseDTO criarFatura(@PathVariable Long id,
-            @RequestBody FaturaRequestDTO faturaRequest, JwtAuthenticationToken token) {
-        return cartaoService.criarFatura(id, faturaRequest, token.getToken().getSubject());
+    @PutMapping("/cartoes/{id}")
+    public CartaoResponseDTO atualizarCartao(@PathVariable Long id,
+            @RequestBody CartaoRequestDTO cartaoRequest, JwtAuthenticationToken token) {
+        return cartaoService.atualizarCartao(id, cartaoRequest, token.getToken().getSubject());
     }
 
     @GetMapping("/cartoes/{id}")

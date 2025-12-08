@@ -2,6 +2,7 @@
     "id": "financeiro",
     "realm": "financeiro",
     "enabled": true,
+    "accessTokenLifespan": 1800,
     "clients": [
         {
             "clientId": "backend-admin",

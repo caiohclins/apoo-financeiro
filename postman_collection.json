@@ -23,13 +23,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{gateway_url}}/identidade/usuarios",
+                            "raw": "{{gateway_url}}/identidade/criar-usuario",
                             "host": [
                                 "{{gateway_url}}"
                             ],
                             "path": [
                                 "identidade",
-                                "usuarios"
+                                "criar-usuario"
                             ]
                         }
                     },

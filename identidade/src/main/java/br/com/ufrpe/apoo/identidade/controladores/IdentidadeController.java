@@ -19,7 +19,7 @@ public class IdentidadeController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/criar-usuario")
     public String criarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return usuarioService.criarUsuario(usuarioDTO);
     }

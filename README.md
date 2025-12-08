@@ -81,19 +81,21 @@ A infraestrutura básica é orquestrada via [docker-compose.yml](file:///Users/c
 -   **API (via Postman)**:
     -   `GET /financeiro/lancamentos`: Listar.
     -   `POST /financeiro/lancamentos`: Criar.
-    -   `GET/DELETE /financeiro/lancamentos/{id}`: Detalhar/Remover.
+    -   `PUT/DELETE /financeiro/lancamentos/{id}`: Atualizar/Remover.
+    -   `GET /financeiro/lancamentos/cartao/{cartaoId}`: Listar por cartão e mês.
 
 ### 3.3. Serviço: Credito
 -   **Diretório**: `/credito`
 -   **Porta**: `8082`
--   **Função**: Gerenciamento de cartões de crédito e faturas.
+-   **Função**: Gerenciamento de cartões de crédito e geração de faturas.
 -   **Pacote Base**: `br.com.ufrpe.apoo.credito`
 -   **Entidades** (`dominio`):
     -   `Cartao.java`: Cartão de crédito (limite, vencimento, nome).
-    -   `Fatura.java`: Faturas associadas aos cartões.
+    -   *Nota*: `Fatura` é um DTO gerado dinamicamente, agregando dados do cartão e transações do serviço Financeiro.
 -   **API (via Postman)**:
-    -   `GET/POST /credito/cartoes`: Gerenciar cartões.
-    -   `GET/POST /credito/cartoes/{id}/faturas`: Gerenciar faturas do cartão.
+    -   `GET/POST/PUT /credito/cartoes`: Gerenciar cartões.
+    -   `GET /credito/faturas?mes=X&ano=Y`: Listar faturas de todos os cartões.
+    -   `GET /credito/faturas/{cartaoId}?mes=X&ano=Y`: Detalhar fatura de um cartão.
 
 ---
 

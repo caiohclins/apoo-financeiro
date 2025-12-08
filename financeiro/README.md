@@ -41,9 +41,12 @@ O serviço extrai o `sub` (Subject) do token para filtrar os dados, garantindo q
 | `GET` | `/lancamentos` | Lista todos os lançamentos do usuário logado. |
 | `POST` | `/lancamentos` | Cria um novo lançamento. Use `tagIds` para associar tags. |
 | `GET` | `/lancamentos/{id}` | Busca detalhes de um lançamento. |
+| `PUT` | `/lancamentos/{id}` | Atualiza um lançamento. |
 | `DELETE` | `/lancamentos/{id}` | Remove um lançamento. |
+| `GET` | `/lancamentos/cartao/{cartaoId}` | Lista lançamentos por cartão e mês/ano (Params: `mes`, `ano`). |
 | `GET` | `/tags` | Lista todas as tags. |
 | `POST` | `/tags` | Cria uma nova tag. |
+| `PUT` | `/tags/{id}` | Atualiza uma tag. |
 | `GET` | `/tags/{id}` | Busca uma tag por ID. |
 | `DELETE` | `/tags/{id}` | Remove uma tag por ID. |
 

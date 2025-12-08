@@ -19,16 +19,12 @@ Este microserviço gerencia os produtos de crédito, especificamente **Cartões 
     -   `usuarioId`: Dono do cartão (Linked via JWT).
     -   `diaVencimentoFatura`: Dia de vencimento da fatura.
     -   `melhorDiaCompra`: Dia ideal para compra.
--   **`Fatura`**: Fatura mensal associada a um cartão.
-    -   `cartao`: Relacionamento ManyToOne.
-    -   `dataVencimento`: Data de vencimento desta fatura específica.
-    -   `valorTotal`: Total a pagar.
-    -   `fechada`: Status da fatura (aberta/fechada).
+    - `melhorDiaCompra`: Dia ideal para compra.
 
 ### 🎮 Camadas
--   **Service (`servico`)**: Lógica de negócio (`CartaoService`).
--   **Controladores (`controladores`)**: `CartaoController`.
--   **DTOs (`dto`)**: `CartaoRequestDTO`, `CartaoResponseDTO`, `FaturaRequestDTO`, `FaturaResponseDTO`.
+-   **Service (`servico`)**: Lógica de negócio (`CartaoService`, `FaturaService`).
+-   **Controladores (`controladores`)**: `CartaoController`, `FaturaController`.
+-   **DTOs (`dto`)**: `CartaoRequestDTO`, `CartaoResponseDTO`, `FaturaDTO` (Objeto dinâmico, não persistido).
 -   **Exceções (`excecao`)**: `RecursoNaoEncontradoException`, `AcessoNegadoException`.
 
 ## 🔒 Segurança
@@ -41,13 +37,18 @@ Assim como no serviço Financeiro, utiliza **JWT Bearer Token** para autenticaç
 | `GET` | `/cartoes` | Lista todos os cartões do usuário. |
 | `POST` | `/cartoes` | Cadastra um novo cartão. |
 | `GET` | `/cartoes/{id}` | Busca detalhes do cartão. |
+| `PUT` | `/cartoes/{id}` | Atualiza dados do cartão. |
 | `DELETE` | `/cartoes/{id}` | Remove um cartão. |
 
 ### Faturas
 | Método | Recurso | Descrição |
 | :--- | :--- | :--- |
-| `GET` | `/cartoes/{id}/faturas` | Lista todas as faturas de um cartão específico. |
-| `POST` | `/cartoes/{id}/faturas` | Cria uma fatura (geralmente gerada automaticamente, mas exposta para testes/MVP). |
+| `GET` | `/faturas?mes=X&ano=Y` | Lista as faturas de todos os cartões do usuário para o mês/ano. |
+| `GET` | `/faturas/{cartaoId}?mes=X&ano=Y` | Gera a fatura detalhada de um cartão específico. |
+
+## 🧩 Integração
+-   **Financeiro Service**: O serviço se comunica via **OpenFeign** com o microsserviço `financeiro` para buscar os lançamentos (transações) referentes ao período da fatura.
+
 
 ## ⚙️ Configurações Principais
 -   **Porta**: 8082

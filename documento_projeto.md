@@ -112,3 +112,21 @@ Nota: Keycloak estará em http://localhost:8080 (admin/admin para login inicial)
 
 ## Alterações da Fase Anterior
 
+### Alterações em Entidades
+- **Classe Usuario:** Adicionado o atributo -id: long, que armazena um identificador interno do banco de dados. Facilita busca e permite a alteração de provedor de identidade externo se necessário.
+- **Outras Classes (Fatura):** Agora utiliza atributos de Lançamentos e Cartões para compor faturas.
+
+### Alterações em Serviços, Controladores e Repositórios
+- **Ajustes na organização do diagrama:**
+  - **Nomes trocados:** Repositorio de tags e de usuários agora apresentam os nomes corretos.
+  - **Localização dos componentes:** Interface e repositorio de usuarios agora estão localizadas no lugar correto.
+  - **Preenchimento de métodos faltantes:** Implementação de métodos faltantes no diagrama, principalmeente nas classes relacionadas ao provedor de identidade.
+- **Ajustes em Serviços Existentes:**
+  - **ServicoUsuarios:** Remoção do método buscarDadosUsuario() e adição do método login(). Agora se comunica diretamente com o provedor de identidade para autenticação.
+  - **Controladores (ex: ControladorCartao, ControladorFatura):** Agora possuem todos os métodos de CRUD, incluindo o buscarTodos.
+- **Remoção e Criação de Padrões de Projeto**
+  - **FachadaSistemaFinanceiro:** Agora também implementa a o padrão Singleton.
+  - **Padrão Iterator:** Removido.
+
+### Novas Relações
+- **Relações:** Relações entre entidades destacadas. Relação entre serviço de cartão e serviço de lançamento criada.

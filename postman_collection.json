@@ -80,145 +80,186 @@
             "name": "Financeiro",
             "item": [
                 {
-                    "name": "Listar Lancamentos",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/financeiro/lancamentos",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "financeiro",
-                                "lancamentos"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Criar Lancamento",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"descricao\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"dataLancamento\": \"2023-10-27\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1, 5]\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
+                    "name": "Lancamentos",
+                    "item": [
+                        {
+                            "name": "Listar Lancamentos",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos"
+                                    ]
                                 }
-                            }
+                            },
+                            "response": []
                         },
-                        "url": {
-                            "raw": "{{gateway_url}}/financeiro/lancamentos",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "financeiro",
-                                "lancamentos"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Buscar Lancamento por ID",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/financeiro/lancamentos/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "financeiro",
-                                "lancamentos",
-                                "1"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Atualizar Lancamento",
-                    "request": {
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"descricao\": \"Compra Supermercado Editada\",\n    \"valor\": 200.00,\n    \"dataLancamento\": \"2023-10-28\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1]\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
+                        {
+                            "name": "Criar Lancamento",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"descricao\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"cartaoId\": 1,\n    \"dataLancamento\": \"2023-10-27\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1, 5]\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos"
+                                    ]
                                 }
-                            }
+                            },
+                            "response": []
                         },
-                        "url": {
-                            "raw": "{{gateway_url}}/financeiro/lancamentos/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "financeiro",
-                                "lancamentos",
-                                "1"
-                            ]
+                        {
+                            "name": "Buscar Lancamento por ID",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Atualizar Lancamento",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"descricao\": \"Compra Supermercado Editada\",\n    \"valor\": 200.00,\n    \"cartaoId\": 1,\n    \"dataLancamento\": \"2023-10-28\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1]\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Deletar Lancamento",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Listar Por Cartao",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/lancamentos/cartao/1?mes=10&ano=2023",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "lancamentos",
+                                        "cartao",
+                                        "1"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "mes",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "key": "ano",
+                                            "value": "2023"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
                         }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Deletar Lancamento",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/financeiro/lancamentos/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "financeiro",
-                                "lancamentos",
-                                "1"
-                            ]
-                        }
-                    },
-                    "response": []
+                    ]
                 },
                 {
                     "name": "Tags",
@@ -244,7 +285,8 @@
                                         "tags"
                                     ]
                                 }
-                            }
+                            },
+                            "response": []
                         },
                         {
                             "name": "Criar Tag",
@@ -276,7 +318,33 @@
                                         "tags"
                                     ]
                                 }
-                            }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Buscar Tag por ID",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/tags/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "tags",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
                         },
                         {
                             "name": "Atualizar Tag",
@@ -309,7 +377,72 @@
                                         "1"
                                     ]
                                 }
-                            }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Deletar Tag",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/tags/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "tags",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Dashboard",
+                    "item": [
+                        {
+                            "name": "Obter Dashboard",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/financeiro/dashboard?mes=10&ano=2023",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "financeiro",
+                                        "dashboard"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "mes",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "key": "ano",
+                                            "value": "2023"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
                         }
                     ]
                 }
@@ -319,214 +452,224 @@
             "name": "Credito",
             "item": [
                 {
-                    "name": "Listar Cartoes",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "cartoes"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Criar Cartao",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"diaVencimentoFatura\": 10,\n    \"diaFechamentoFatura\": 3\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
+                    "name": "Cartoes",
+                    "item": [
+                        {
+                            "name": "Listar Cartoes",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/cartoes",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "cartoes"
+                                    ]
                                 }
-                            }
+                            },
+                            "response": []
                         },
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "cartoes"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Buscar Cartao por ID",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "cartoes",
-                                "1"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Deletar Cartao",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "cartoes",
-                                "1"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Atualizar Cartao",
-                    "request": {
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Nubank Editado\",\n    \"limite\": 6000.00,\n    \"diaVencimentoFatura\": 15,\n    \"diaFechamentoFatura\": 5\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
+                        {
+                            "name": "Criar Cartao",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"diaVencimentoFatura\": 10,\n    \"diaFechamentoFatura\": 3\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/cartoes",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "cartoes"
+                                    ]
                                 }
-                            }
+                            },
+                            "response": []
                         },
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/cartoes/1",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "cartoes",
-                                "1"
-                            ]
+                        {
+                            "name": "Buscar Cartao por ID",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/cartoes/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "cartoes",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Atualizar Cartao",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"nome\": \"Nubank Editado\",\n    \"limite\": 6000.00,\n    \"diaVencimentoFatura\": 15,\n    \"diaFechamentoFatura\": 5\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/cartoes/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "cartoes",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Deletar Cartao",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/cartoes/1",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "cartoes",
+                                        "1"
+                                    ]
+                                }
+                            },
+                            "response": []
                         }
-                    },
-                    "response": []
+                    ]
                 },
                 {
-                    "name": "Gerar Fatura do Cartao",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/faturas/1?mes=12&ano=2025",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "faturas",
-                                "1"
-                            ],
-                            "query": [
-                                {
-                                    "key": "mes",
-                                    "value": "12"
-                                },
-                                {
-                                    "key": "ano",
-                                    "value": "2025"
+                    "name": "Faturas",
+                    "item": [
+                        {
+                            "name": "Listar Todas Faturas (Mes/Ano)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/faturas?mes=12&ano=2025",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "faturas"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "mes",
+                                            "value": "12"
+                                        },
+                                        {
+                                            "key": "ano",
+                                            "value": "2025"
+                                        }
+                                    ]
                                 }
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Listar Todas Faturas (Mes/Ano)",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{token}}",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{gateway_url}}/credito/faturas?mes=12&ano=2025",
-                            "host": [
-                                "{{gateway_url}}"
-                            ],
-                            "path": [
-                                "credito",
-                                "faturas"
-                            ],
-                            "query": [
-                                {
-                                    "key": "mes",
-                                    "value": "12"
-                                },
-                                {
-                                    "key": "ano",
-                                    "value": "2025"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Gerar Fatura do Cartao",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{gateway_url}}/credito/faturas/1?mes=12&ano=2025",
+                                    "host": [
+                                        "{{gateway_url}}"
+                                    ],
+                                    "path": [
+                                        "credito",
+                                        "faturas",
+                                        "1"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "mes",
+                                            "value": "12"
+                                        },
+                                        {
+                                            "key": "ano",
+                                            "value": "2025"
+                                        }
+                                    ]
                                 }
-                            ]
+                            },
+                            "response": []
                         }
-                    },
-                    "response": []
+                    ]
                 }
             ]
         }

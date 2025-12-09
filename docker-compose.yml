@@ -98,6 +98,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_HOST: keycloak
       DISCOVERY_HOST: discovery
+      CREDITO_HOST: credito
     depends_on:
       postgres:
         condition: service_healthy

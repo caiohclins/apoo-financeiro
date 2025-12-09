@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record LancamentoResponseDTO(
-                Long id,
-                String descricao,
-                Double valor,
-                LocalDate dataLancamento,
-                int quantidadeParcelas,
-                boolean recorrente,
-                String tipo,
-                String idIdentidade,
-                Long cartaoId,
-                List<TagResponseDTO> tags) {
+        Long id,
+        String descricao,
+        Double valor,
+        LocalDate dataLancamento,
+        int quantidadeParcelas,
+        boolean recorrente,
+        String tipo,
+        String idIdentidade,
+        Long cartaoId,
+        List<TagResponseDTO> tags) {
 }

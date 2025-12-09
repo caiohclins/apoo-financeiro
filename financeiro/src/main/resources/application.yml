@@ -23,3 +23,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${DISCOVERY_HOST:localhost}:8761/eureka/
+
+application:
+  credito:
+    url: http://${CREDITO_HOST:localhost}:8082/credito

@@ -26,8 +26,8 @@ public class TagController {
     }
 
     @GetMapping
-    public List<TagResponseDTO> listarTags() {
-        return tagService.listarTags();
+    public List<TagResponseDTO> buscarTags() {
+        return tagService.buscarTags();
     }
 
     @PostMapping
@@ -41,12 +41,12 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
-    public TagResponseDTO buscarTag(@PathVariable Long id) {
-        return tagService.buscarTag(id);
+    public TagResponseDTO buscarTagPorId(@PathVariable Long id) {
+        return tagService.buscarTagPorId(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deletarTag(@PathVariable Long id) {
-        tagService.deletarTag(id);
+    public void excluirTag(@PathVariable Long id) {
+        tagService.excluirTag(id);
     }
 }

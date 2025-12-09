@@ -23,7 +23,7 @@ public class TagService {
         this.tagMapper = tagMapper;
     }
 
-    public List<TagResponseDTO> listarTags() {
+    public List<TagResponseDTO> buscarTags() {
         return tagRepository.findAll().stream()
                 .map(tagMapper::toDTO)
                 .collect(Collectors.toList());
@@ -35,7 +35,7 @@ public class TagService {
         return tagMapper.toDTO(salvo);
     }
 
-    public TagResponseDTO buscarTag(Long id) {
+    public TagResponseDTO buscarTagPorId(Long id) {
         Tag tag = tagRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException(
                         "Tag não encontrada"));
@@ -54,7 +54,7 @@ public class TagService {
         return tagMapper.toDTO(tag);
     }
 
-    public void deletarTag(Long id) {
+    public void excluirTag(Long id) {
         tagRepository.deleteById(id);
     }
 }

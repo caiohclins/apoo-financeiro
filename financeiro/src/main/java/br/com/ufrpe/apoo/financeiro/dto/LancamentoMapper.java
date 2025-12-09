@@ -17,11 +17,10 @@ public class LancamentoMapper {
 
     public Lancamento toEntity(LancamentoRequestDTO dto) {
         Lancamento lancamento = new Lancamento();
-        lancamento.setNome(dto.nome());
         lancamento.setDescricao(dto.descricao());
         lancamento.setValor(dto.valor());
-        lancamento.setDataPagamento(dto.dataPagamento());
-        lancamento.setNumeroParcelas(dto.numeroParcelas());
+        lancamento.setDataLancamento(dto.dataLancamento());
+        lancamento.setQuantidadeParcelas(dto.quantidadeParcelas());
         lancamento.setRecorrente(dto.recorrente());
         lancamento.setTipo(dto.tipo());
         lancamento.setCartaoId(dto.cartaoId());
@@ -35,11 +34,10 @@ public class LancamentoMapper {
 
         return new LancamentoResponseDTO(
                 entity.getId(),
-                entity.getNome(),
                 entity.getDescricao(),
                 entity.getValor(),
-                entity.getDataPagamento(),
-                entity.getNumeroParcelas(),
+                entity.getDataLancamento(),
+                entity.getQuantidadeParcelas(),
                 entity.isRecorrente(),
                 entity.getTipo(),
                 entity.getUsuarioId(),

@@ -116,7 +116,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"dataPagamento\": \"2023-10-27\",\n    \"numeroParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1, 5]\n}",
+                            "raw": "{\n    \"descricao\": \"Compra Supermercado\",\n    \"valor\": 150.00,\n    \"dataLancamento\": \"2023-10-27\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1, 5]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -174,7 +174,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Compra Supermercado Editada\",\n    \"valor\": 200.00,\n    \"dataPagamento\": \"2023-10-28\",\n    \"numeroParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1]\n}",
+                            "raw": "{\n    \"descricao\": \"Compra Supermercado Editada\",\n    \"valor\": 200.00,\n    \"dataLancamento\": \"2023-10-28\",\n    \"quantidadeParcelas\": 1,\n    \"recorrente\": false,\n    \"tipo\": \"DESPESA\",\n    \"tagIds\": [1]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

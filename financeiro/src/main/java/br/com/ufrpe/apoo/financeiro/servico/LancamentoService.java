@@ -1,5 +1,6 @@
 package br.com.ufrpe.apoo.financeiro.servico;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class LancamentoService {
         this.lancamentoMapper = lancamentoMapper;
     }
 
-    public List<LancamentoResponseDTO> listarLancamentos(String usuarioId) {
+    public List<LancamentoResponseDTO> buscarLancamentos(String usuarioId) {
         return lancamentoRepository.findByUsuarioId(usuarioId).stream()
                 .map(lancamentoMapper::toDTO)
                 .collect(Collectors.toList());
@@ -48,7 +49,7 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(salvo);
     }
 
-    public LancamentoResponseDTO buscarLancamento(Long id, String usuarioId) {
+    public LancamentoResponseDTO buscarLancamentoPorId(Long id, String usuarioId) {
         Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
         if (lancamento != null && !lancamento.getUsuarioId().equals(usuarioId)) {
             throw new AcessoNegadoException("Acesso negado");
@@ -67,11 +68,10 @@ public class LancamentoService {
             throw new AcessoNegadoException("Acesso negado");
         }
 
-        lancamento.setNome(dto.nome());
         lancamento.setDescricao(dto.descricao());
         lancamento.setValor(dto.valor());
-        lancamento.setDataPagamento(dto.dataPagamento());
-        lancamento.setNumeroParcelas(dto.numeroParcelas());
+        lancamento.setDataLancamento(dto.dataLancamento());
+        lancamento.setQuantidadeParcelas(dto.quantidadeParcelas());
         lancamento.setRecorrente(dto.recorrente());
         lancamento.setTipo(dto.tipo());
         lancamento.setCartaoId(dto.cartaoId());
@@ -87,7 +87,7 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(lancamento);
     }
 
-    public void deletarLancamento(Long id, String usuarioId) {
+    public void excluirLancamento(Long id, String usuarioId) {
         Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
         if (lancamento != null) {
             if (!lancamento.getUsuarioId().equals(usuarioId)) {
@@ -97,9 +97,9 @@ public class LancamentoService {
         }
     }
 
-    public List<LancamentoResponseDTO> listarPorCartao(Long cartaoId, int mes, int ano) {
-        java.time.LocalDate inicio = java.time.LocalDate.of(ano, mes, 1);
-        java.time.LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
+    public List<LancamentoResponseDTO> buscarLancamentosPorCartao(Long cartaoId, int mes, int ano) {
+        LocalDate inicio = LocalDate.of(ano, mes, 1);
+        LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
 
         return lancamentoRepository.findByCartaoIdAndDataPagamentoBetween(cartaoId, inicio, fim).stream()
                 .map(lancamentoMapper::toDTO)

@@ -15,12 +15,11 @@ public class Lancamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     private String descricao;
     @Min(value = 0, message = "Valor deve ser maior ou igual a 0")
     private Double valor;
-    private LocalDate dataPagamento;
-    private int numeroParcelas;
+    private LocalDate dataLancamento;
+    private int quantidadeParcelas;
     private boolean recorrente;
     private String tipo;
     private String usuarioId;
@@ -35,14 +34,6 @@ public class Lancamento {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -61,20 +52,20 @@ public class Lancamento {
         this.valor = valor;
     }
 
-    public LocalDate getDataPagamento() {
-        return dataPagamento;
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
     }
 
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
+    public void setDataLancamento(LocalDate dataPagamento) {
+        this.dataLancamento = dataPagamento;
     }
 
-    public int getNumeroParcelas() {
-        return numeroParcelas;
+    public int getQuantidadeParcelas() {
+        return quantidadeParcelas;
     }
 
-    public void setNumeroParcelas(int numeroParcelas) {
-        this.numeroParcelas = numeroParcelas;
+    public void setQuantidadeParcelas(int numeroParcelas) {
+        this.quantidadeParcelas = numeroParcelas;
     }
 
     public boolean isRecorrente() {

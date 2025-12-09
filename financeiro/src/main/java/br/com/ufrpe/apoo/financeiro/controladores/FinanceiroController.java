@@ -25,9 +25,9 @@ public class FinanceiroController {
     }
 
     @GetMapping("/lancamentos")
-    public List<LancamentoResponseDTO> listarLancamentos(
+    public List<LancamentoResponseDTO> buscarLancamentos(
             JwtAuthenticationToken token) {
-        return lancamentoService.listarLancamentos(token.getToken().getSubject());
+        return lancamentoService.buscarLancamentos(token.getToken().getSubject());
     }
 
     @PostMapping("/lancamentos")
@@ -45,21 +45,21 @@ public class FinanceiroController {
     }
 
     @GetMapping("/lancamentos/{id}")
-    public LancamentoResponseDTO buscarLancamento(@PathVariable Long id,
+    public LancamentoResponseDTO buscarLancamentoPorId(@PathVariable Long id,
             JwtAuthenticationToken token) {
-        return lancamentoService.buscarLancamento(id, token.getToken().getSubject());
+        return lancamentoService.buscarLancamentoPorId(id, token.getToken().getSubject());
     }
 
     @DeleteMapping("/lancamentos/{id}")
-    public void deletarLancamento(@PathVariable Long id, JwtAuthenticationToken token) {
-        lancamentoService.deletarLancamento(id, token.getToken().getSubject());
+    public void excluirLancamento(@PathVariable Long id, JwtAuthenticationToken token) {
+        lancamentoService.excluirLancamento(id, token.getToken().getSubject());
     }
 
     @GetMapping("/lancamentos/cartao/{cartaoId}")
-    public List<LancamentoResponseDTO> listarLancamentosPorCartao(
+    public List<LancamentoResponseDTO> buscarLancamentosPorCartao(
             @PathVariable Long cartaoId,
             @org.springframework.web.bind.annotation.RequestParam int mes,
             @org.springframework.web.bind.annotation.RequestParam int ano) {
-        return lancamentoService.listarPorCartao(cartaoId, mes, ano);
+        return lancamentoService.buscarLancamentosPorCartao(cartaoId, mes, ano);
     }
 }

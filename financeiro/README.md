@@ -15,7 +15,7 @@ Este microserviço é o núcleo do controle orçamentário pessoal. Ele gerencia
     -   `id`: Identificador único.
     -   `nome`, `descricao`: Detalhes do lançamento.
     -   `valor`: Quantia monetária.
-    -   `dataPagamento`: Data da transação.
+    -   `dataLancamento`: Data da transação.
     -   `tipo`: `RECEITA` ou `DESPESA` (geralmente string ou enum).
     -   `idIdentidade`: ID do dono do lançamento (vinculado ao token JWT).
     -   `cartaoId`: Opcional, se vinculado a um cartão de crédito.
@@ -55,7 +55,7 @@ O serviço extrai o `sub` (Subject) do token para filtrar os dados, garantindo q
 {
     "nome": "Supermercado Semanal",
     "valor": 350.00,
-    "dataPagamento": "2023-11-20",
+    "dataLancamento": "2023-11-20",
     "tipo": "DESPESA",
     "tagIds": [1, 5]
 }

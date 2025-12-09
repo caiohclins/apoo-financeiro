@@ -18,8 +18,7 @@ Este microserviço gerencia os produtos de crédito, especificamente **Cartões 
     -   `limite`: Limite total de crédito.
     -   `idIdentidade`: Dono do cartão (Linked via JWT).
     -   `diaVencimentoFatura`: Dia de vencimento da fatura.
-    -   `melhorDiaCompra`: Dia ideal para compra.
-    - `melhorDiaCompra`: Dia ideal para compra.
+    -   `diaFechamentoFatura`: Dia ideal para compra.
 
 ### 🎮 Camadas
 -   **Service (`servico`)**: Lógica de negócio (`CartaoService`, `FaturaService`).

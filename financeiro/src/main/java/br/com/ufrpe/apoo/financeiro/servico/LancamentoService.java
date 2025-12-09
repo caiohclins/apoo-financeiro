@@ -101,7 +101,7 @@ public class LancamentoService {
         LocalDate inicio = LocalDate.of(ano, mes, 1);
         LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
 
-        return lancamentoRepository.findByCartaoIdAndDataPagamentoBetween(cartaoId, inicio, fim).stream()
+        return lancamentoRepository.findByCartaoIdAndDataLancamentoBetween(cartaoId, inicio, fim).stream()
                 .map(lancamentoMapper::toDTO)
                 .collect(Collectors.toList());
     }

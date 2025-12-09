@@ -60,7 +60,7 @@ public class Cartao {
         return diaFechamentoFatura;
     }
 
-    public void setDiaFechamentoFatura(int melhorDiaCompra) {
-        this.diaFechamentoFatura = melhorDiaCompra;
+    public void setDiaFechamentoFatura(int diaFechamentoFatura) {
+        this.diaFechamentoFatura = diaFechamentoFatura;
     }
 }

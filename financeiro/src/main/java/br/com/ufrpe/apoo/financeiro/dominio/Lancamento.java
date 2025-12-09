@@ -56,16 +56,16 @@ public class Lancamento {
         return dataLancamento;
     }
 
-    public void setDataLancamento(LocalDate dataPagamento) {
-        this.dataLancamento = dataPagamento;
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 
     public int getQuantidadeParcelas() {
         return quantidadeParcelas;
     }
 
-    public void setQuantidadeParcelas(int numeroParcelas) {
-        this.quantidadeParcelas = numeroParcelas;
+    public void setQuantidadeParcelas(int quantidadeParcelas) {
+        this.quantidadeParcelas = quantidadeParcelas;
     }
 
     public boolean isRecorrente() {

@@ -22,6 +22,8 @@ Versão 1.0 - 10/12/2025
 | 28/11/2025   | 0.3    | Refatoração de endpoints de criação de usuários e login com uso de DTOs; Criação dos microserviços financeiro e crédito; | Caio H. C. Lins |
 | 07/12/2025   | 0.4    | Adição de documentação abrangente e diagramas arquiteturais; atualização de dependências Spring Boot; implementação de API de gerenciamento de tags; refatoração de paths de contexto; introdução de DTOs, camadas de serviço, mappers e handling global de exceções. | Caio H. C. Lins |
 | 08/12/2025   | 0.5    | Implementação de geração de faturas no serviço de crédito, integrando com o serviço financeiro via REST; refatoração de Fatura para DTO dinâmico; adição de endpoints de CRUD faltantes para recursos como Cartao, Lancamento e Tag. | Caio H. C. Lins |
+| 08/12/2025   | 0.6    | Refatorações para alinhamento com diagrama de arquitetura: renomeação de endpoints de criação de usuários; renomeação de campos como dataPagamento para dataLancamento, numeroParcelas para quantidadeParcelas e melhorDiaCompra para diaFechamentoFatura; renomeação de usuarioId e keycloakId para idIdentidade em módulos de usuário; renomeação de métodos em serviços e controladores de Lancamento e Tag, com atualizações em DTOs; remoção de número de cartão por segurança, renomeação em módulos de cartões e fatura, e simplificação de DTOs e métodos de serviço. | Caio H. Clins |
+| 08/12/2025   | 1.0    | Atualizações finais para suporte ao fluxo completo de dashboard: refinamento de modelos de dados e APIs para visualização integrada de lançamentos, faturas e cartões; adição de documentação de projeto alinhada; melhorias em consistência de identidade e transações financeiras para dashboards dinâmicos. | Caio H. Clins |
 
 ## Introdução
 
@@ -71,10 +73,12 @@ O sistema implementa três microserviços, todos com controle de dados via Postg
     - Entidades: Lancamento (valor, data, tipo, usuário, cartaoId) e Tag (nome, cor). 
     - Oferece CRUD completo para lançamentos e tags, com filtros por cartão, mês ou usuário. 
     - Interage com o serviço de Crédito fornecendo dados de transações via Feign Client para geração de faturas, assegurando consistência de dados financeiros.
+    - No fluxo de dashboard, endpoints como GET /lancamentos e GET /tags permitem agregação de dados para métricas como balanço mensal e categorização de despesas.
 - **Microserviço de Crédito (credito, porta 8082):** Envolve persistência de cartões de crédito no PostgreSQL. 
     - Entidades: Cartao (limite, vencimento, usuário). 
     - Oferece CRUD para cartões e gera faturas dinâmicas (como DTO) consultando lançamentos do serviço Financeiro via Feign. 
     - Essa interação é essencial, pois as faturas são compostas dinamicamente a partir de dados de outros serviços, evitando duplicação de dados.
+    - No fluxo de dashboard, endpoints como GET /cartoes/{id}/fatura/{mesAno} fornecem resumos de faturas, integrando com lançamentos para visualizações completas de gastos por cartão.
 
 Todos os microserviços de negócio (identidade, financeiro e credito) requerem interações: por exemplo, o Crédito depende do Financeiro para compor faturas, e todos dependem da autenticação via Identidade/Keycloak para segurança.
 
@@ -121,6 +125,7 @@ Nota: Keycloak estará em http://localhost:8080 (admin/admin para login inicial)
   - **Nomes trocados:** Repositorio de tags e de usuários agora apresentam os nomes corretos.
   - **Localização dos componentes:** Interface e repositorio de usuarios agora estão localizadas no lugar correto.
   - **Preenchimento de métodos faltantes:** Implementação de métodos faltantes no diagrama, principalmeente nas classes relacionadas ao provedor de identidade.
+  - **Serviço e Controlador de Dashboard** Criação de serviço de Dashboard e simplificação de controlador de dashboard, assim como ajuste nos relacionamentos.
 - **Ajustes em Serviços Existentes:**
   - **ServicoUsuarios:** Remoção do método buscarDadosUsuario() e adição do método login(). Agora se comunica diretamente com o provedor de identidade para autenticação.
   - **Controladores (ex: ControladorCartao, ControladorFatura):** Agora possuem todos os métodos de CRUD, incluindo o buscarTodos.
@@ -130,3 +135,4 @@ Nota: Keycloak estará em http://localhost:8080 (admin/admin para login inicial)
 
 ### Novas Relações
 - **Relações:** Relações entre entidades destacadas. Relação entre serviço de cartão e serviço de lançamento criada.
+- **Direções das relações:** Direções das relações entre classes destacadas.

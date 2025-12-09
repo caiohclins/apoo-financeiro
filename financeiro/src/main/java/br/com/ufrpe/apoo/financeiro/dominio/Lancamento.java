@@ -22,7 +22,7 @@ public class Lancamento {
     private int quantidadeParcelas;
     private boolean recorrente;
     private String tipo;
-    private String usuarioId;
+    private String idIdentidade;
     private Long cartaoId;
 
     @ManyToMany
@@ -84,12 +84,12 @@ public class Lancamento {
         this.tipo = tipo;
     }
 
-    public String getUsuarioId() {
-        return usuarioId;
+    public String getIdIdentidade() {
+        return idIdentidade;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setIdIdentidade(String idIdentidade) {
+        this.idIdentidade = idIdentidade;
     }
 
     public Long getCartaoId() {

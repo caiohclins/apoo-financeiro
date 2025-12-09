@@ -25,11 +25,11 @@ public class FaturaService {
         this.financeiroClient = financeiroClient;
     }
 
-    public FaturaDTO gerarFaturaCartao(Long cartaoId, int mes, int ano, String usuarioId) {
+    public FaturaDTO gerarFaturaCartao(Long cartaoId, int mes, int ano, String idIdentidade) {
         Cartao cartao = cartaoRepository.findById(cartaoId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Cartão não encontrado"));
 
-        if (!cartao.getUsuarioId().equals(usuarioId)) {
+        if (!cartao.getIdIdentidade().equals(idIdentidade)) {
             throw new AcessoNegadoException("Acesso negado");
         }
 
@@ -68,9 +68,9 @@ public class FaturaService {
         return new FaturaDTO(cartao.getId(), cartao.getNome(), dataVencimento, valorTotal, dataFechamento, lancamentos);
     }
 
-    public List<FaturaDTO> listarFaturas(int mes, int ano, String usuarioId) {
-        return cartaoRepository.findByUsuarioId(usuarioId).stream()
-                .map(cartao -> gerarFaturaCartao(cartao.getId(), mes, ano, usuarioId))
+    public List<FaturaDTO> listarFaturas(int mes, int ano, String idIdentidade) {
+        return cartaoRepository.findByIdIdentidade(idIdentidade).stream()
+                .map(cartao -> gerarFaturaCartao(cartao.getId(), mes, ano, idIdentidade))
                 .collect(Collectors.toList());
     }
 }

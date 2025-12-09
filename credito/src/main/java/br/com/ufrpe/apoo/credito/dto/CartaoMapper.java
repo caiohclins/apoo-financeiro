@@ -21,7 +21,7 @@ public class CartaoMapper {
                 entity.getId(),
                 entity.getNome(),
                 entity.getLimite(),
-                entity.getUsuarioId(),
+                entity.getIdIdentidade(),
                 entity.getDiaVencimentoFatura(),
                 entity.getDiaFechamentoFatura());
     }

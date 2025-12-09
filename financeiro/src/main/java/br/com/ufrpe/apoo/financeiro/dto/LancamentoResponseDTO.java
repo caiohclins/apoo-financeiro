@@ -11,7 +11,7 @@ public record LancamentoResponseDTO(
                 int quantidadeParcelas,
                 boolean recorrente,
                 String tipo,
-                String usuarioId,
+                String idIdentidade,
                 Long cartaoId,
                 List<TagResponseDTO> tags) {
 }

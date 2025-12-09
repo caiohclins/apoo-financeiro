@@ -10,7 +10,7 @@ import java.util.List;
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
     List<Lancamento> findByTipo(String tipo);
 
-    List<Lancamento> findByUsuarioId(String usuarioId);
+    List<Lancamento> findByIdIdentidade(String idIdentidade);
 
     List<Lancamento> findByCartaoIdAndDataPagamentoBetween(Long cartaoId, java.time.LocalDate inicio,
             java.time.LocalDate fim);

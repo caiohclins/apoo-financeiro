@@ -17,7 +17,7 @@ Este microserviço é o núcleo do controle orçamentário pessoal. Ele gerencia
     -   `valor`: Quantia monetária.
     -   `dataPagamento`: Data da transação.
     -   `tipo`: `RECEITA` ou `DESPESA` (geralmente string ou enum).
-    -   `usuarioId`: ID do dono do lançamento (vinculado ao token JWT).
+    -   `idIdentidade`: ID do dono do lançamento (vinculado ao token JWT).
     -   `cartaoId`: Opcional, se vinculado a um cartão de crédito.
     -   `tags`: Lista de tags associadas.
 -   **`Tag`**: Categorias para lançamentos.

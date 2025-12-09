@@ -24,21 +24,21 @@ public class CartaoService {
         this.cartaoMapper = cartaoMapper;
     }
 
-    public List<CartaoResponseDTO> buscarCartaoes(String usuarioId) {
-        return cartaoRepository.findByUsuarioId(usuarioId).stream()
+    public List<CartaoResponseDTO> buscarCartaoes(String idIdentidade) {
+        return cartaoRepository.findByIdIdentidade(idIdentidade).stream()
                 .map(cartaoMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public CartaoResponseDTO criarCartao(CartaoRequestDTO dto, String usuarioId) {
+    public CartaoResponseDTO criarCartao(CartaoRequestDTO dto, String idIdentidade) {
         Cartao cartao = cartaoMapper.toEntity(dto);
-        cartao.setUsuarioId(usuarioId);
+        cartao.setIdIdentidade(idIdentidade);
         return cartaoMapper.toDTO(cartaoRepository.save(cartao));
     }
 
-    public CartaoResponseDTO buscarCartaoPorId(Long id, String usuarioId) {
+    public CartaoResponseDTO buscarCartaoPorId(Long id, String idIdentidade) {
         Cartao cartao = cartaoRepository.findById(id).orElse(null);
-        if (cartao != null && !cartao.getUsuarioId().equals(usuarioId)) {
+        if (cartao != null && !cartao.getIdIdentidade().equals(idIdentidade)) {
             throw new AcessoNegadoException("Acesso negado");
         }
         if (cartao == null) {
@@ -47,11 +47,11 @@ public class CartaoService {
         return cartaoMapper.toDTO(cartao);
     }
 
-    public CartaoResponseDTO atualizarCartao(Long id, CartaoRequestDTO dto, String usuarioId) {
+    public CartaoResponseDTO atualizarCartao(Long id, CartaoRequestDTO dto, String idIdentidade) {
         Cartao cartao = cartaoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Cartão não encontrado"));
 
-        if (!cartao.getUsuarioId().equals(usuarioId)) {
+        if (!cartao.getIdIdentidade().equals(idIdentidade)) {
             throw new AcessoNegadoException("Acesso negado");
         }
 
@@ -64,10 +64,10 @@ public class CartaoService {
         return cartaoMapper.toDTO(cartao);
     }
 
-    public void excluirCartao(Long id, String usuarioId) {
+    public void excluirCartao(Long id, String idIdentidade) {
         Cartao cartao = cartaoRepository.findById(id).orElse(null);
         if (cartao != null) {
-            if (!cartao.getUsuarioId().equals(usuarioId)) {
+            if (!cartao.getIdIdentidade().equals(idIdentidade)) {
                 throw new AcessoNegadoException("Acesso negado");
             }
             cartaoRepository.deleteById(id);

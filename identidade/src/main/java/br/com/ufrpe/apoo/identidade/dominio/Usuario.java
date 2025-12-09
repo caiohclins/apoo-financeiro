@@ -12,7 +12,7 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
-    private String keycloakId;
+    private String idIdentidade;
 
     public Long getId() {
         return id;
@@ -38,11 +38,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getKeycloakId() {
-        return keycloakId;
+    public String getIdIdentidade() {
+        return idIdentidade;
     }
 
-    public void setKeycloakId(String keycloakId) {
-        this.keycloakId = keycloakId;
+    public void setIdIdentidade(String idIdentidade) {
+        this.idIdentidade = idIdentidade;
     }
 }

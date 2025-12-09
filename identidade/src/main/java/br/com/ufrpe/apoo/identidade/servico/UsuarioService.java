@@ -25,10 +25,10 @@ public class UsuarioService {
         usuario.setNome(usuarioDTO.getNome());
         usuario.setEmail(usuarioDTO.getEmail());
 
-        String keycloakId = provedorIdentidade.criarUsuario(usuario, usuarioDTO.getSenha());
-        usuario.setKeycloakId(keycloakId);
+        String idIdentidade = provedorIdentidade.criarUsuario(usuario, usuarioDTO.getSenha());
+        usuario.setIdIdentidade(idIdentidade);
         usuarioRepository.save(usuario);
-        return keycloakId;
+        return idIdentidade;
     }
 
     public Map<String, Object> login(LoginDTO loginDTO) {

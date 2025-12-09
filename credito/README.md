@@ -16,7 +16,7 @@ Este microserviço gerencia os produtos de crédito, especificamente **Cartões 
     -   `nome`: Apelido do cartão (ex: "Nubank", "Visa Infinite").
     -   `numero`: Últimos dígitos (para identificação).
     -   `limite`: Limite total de crédito.
-    -   `usuarioId`: Dono do cartão (Linked via JWT).
+    -   `idIdentidade`: Dono do cartão (Linked via JWT).
     -   `diaVencimentoFatura`: Dia de vencimento da fatura.
     -   `melhorDiaCompra`: Dia ideal para compra.
     - `melhorDiaCompra`: Dia ideal para compra.
@@ -28,7 +28,7 @@ Este microserviço gerencia os produtos de crédito, especificamente **Cartões 
 -   **Exceções (`excecao`)**: `RecursoNaoEncontradoException`, `AcessoNegadoException`.
 
 ## 🔒 Segurança
-Assim como no serviço Financeiro, utiliza **JWT Bearer Token** para autenticação e verificação de posse (`usuarioId`).
+Assim como no serviço Financeiro, utiliza **JWT Bearer Token** para autenticação e verificação de posse (`idIdentidade`).
 
 ## 🔌 API Endpoints
 ### Cartões

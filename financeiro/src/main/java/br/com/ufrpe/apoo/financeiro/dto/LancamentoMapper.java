@@ -40,7 +40,7 @@ public class LancamentoMapper {
                 entity.getQuantidadeParcelas(),
                 entity.isRecorrente(),
                 entity.getTipo(),
-                entity.getUsuarioId(),
+                entity.getIdIdentidade(),
                 entity.getCartaoId(),
                 tags);
     }

@@ -4,7 +4,7 @@ public record CartaoResponseDTO(
                 Long id,
                 String nome,
                 Double limite,
-                String usuarioId,
+                String idIdentidade,
                 int diaVencimentoFatura,
                 int diaFechamentoFatura) {
 }

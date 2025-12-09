@@ -25,7 +25,7 @@ public class IdentidadeController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody LoginDTO loginDTO) {
+    public Map<String, Object> solicitarLogin(@RequestBody LoginDTO loginDTO) {
         return usuarioService.login(loginDTO);
     }
 }

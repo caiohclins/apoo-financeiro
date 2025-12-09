@@ -12,7 +12,7 @@ public class Cartao {
     private Long id;
     private String nome;
     private Double limite;
-    private String usuarioId;
+    private String idIdentidade;
     private int diaVencimentoFatura;
     private int diaFechamentoFatura;
 
@@ -40,12 +40,12 @@ public class Cartao {
         this.limite = limite;
     }
 
-    public String getUsuarioId() {
-        return usuarioId;
+    public String getIdIdentidade() {
+        return idIdentidade;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setIdIdentidade(String idIdentidade) {
+        this.idIdentidade = idIdentidade;
     }
 
     public int getDiaVencimentoFatura() {

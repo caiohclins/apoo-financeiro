@@ -30,15 +30,15 @@ public class LancamentoService {
         this.lancamentoMapper = lancamentoMapper;
     }
 
-    public List<LancamentoResponseDTO> buscarLancamentos(String usuarioId) {
-        return lancamentoRepository.findByUsuarioId(usuarioId).stream()
+    public List<LancamentoResponseDTO> buscarLancamentos(String idIdentidade) {
+        return lancamentoRepository.findByIdIdentidade(idIdentidade).stream()
                 .map(lancamentoMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public LancamentoResponseDTO criarLancamento(LancamentoRequestDTO dto, String usuarioId) {
+    public LancamentoResponseDTO criarLancamento(LancamentoRequestDTO dto, String idIdentidade) {
         Lancamento lancamento = lancamentoMapper.toEntity(dto);
-        lancamento.setUsuarioId(usuarioId);
+        lancamento.setIdIdentidade(idIdentidade);
 
         if (dto.tagIds() != null && !dto.tagIds().isEmpty()) {
             List<Tag> tags = tagRepository.findAllById(dto.tagIds());
@@ -49,9 +49,9 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(salvo);
     }
 
-    public LancamentoResponseDTO buscarLancamentoPorId(Long id, String usuarioId) {
+    public LancamentoResponseDTO buscarLancamentoPorId(Long id, String idIdentidade) {
         Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
-        if (lancamento != null && !lancamento.getUsuarioId().equals(usuarioId)) {
+        if (lancamento != null && !lancamento.getIdIdentidade().equals(idIdentidade)) {
             throw new AcessoNegadoException("Acesso negado");
         }
         if (lancamento == null) {
@@ -60,11 +60,11 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(lancamento);
     }
 
-    public LancamentoResponseDTO atualizarLancamento(Long id, LancamentoRequestDTO dto, String usuarioId) {
+    public LancamentoResponseDTO atualizarLancamento(Long id, LancamentoRequestDTO dto, String idIdentidade) {
         Lancamento lancamento = lancamentoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Lançamento não encontrado"));
 
-        if (!lancamento.getUsuarioId().equals(usuarioId)) {
+        if (!lancamento.getIdIdentidade().equals(idIdentidade)) {
             throw new AcessoNegadoException("Acesso negado");
         }
 
@@ -87,10 +87,10 @@ public class LancamentoService {
         return lancamentoMapper.toDTO(lancamento);
     }
 
-    public void excluirLancamento(Long id, String usuarioId) {
+    public void excluirLancamento(Long id, String idIdentidade) {
         Lancamento lancamento = lancamentoRepository.findById(id).orElse(null);
         if (lancamento != null) {
-            if (!lancamento.getUsuarioId().equals(usuarioId)) {
+            if (!lancamento.getIdIdentidade().equals(idIdentidade)) {
                 throw new AcessoNegadoException("Acesso negado");
             }
             lancamentoRepository.deleteById(id);

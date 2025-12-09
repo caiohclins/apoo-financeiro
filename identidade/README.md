@@ -15,7 +15,7 @@ Este serviço é responsável pelo **Gerenciamento de Identidade e Acesso** (IAM
     -   `id` (Long): Identificador local.
     -   `nome` (String): Nome completo.
     -   `email` (String): E-mail do usuário.
-    -   `keycloakId` (String): UUID do usuário no Keycloak.
+    -   `idIdentidade` (String): UUID do usuário no Keycloak.
 
 ### 🎮 Camadas
 -   **Service (`servico`)**: Contém a lógica de negócio (`UsuarioService`), encapsulando a comunicação com o Keycloak.

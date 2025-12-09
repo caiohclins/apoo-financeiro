@@ -11,11 +11,10 @@ public class Cartao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String numero;
     private Double limite;
     private String usuarioId;
     private int diaVencimentoFatura;
-    private int melhorDiaCompra;
+    private int diaFechamentoFatura;
 
     public Long getId() {
         return id;
@@ -31,14 +30,6 @@ public class Cartao {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public Double getLimite() {
@@ -65,11 +56,11 @@ public class Cartao {
         this.diaVencimentoFatura = diaVencimentoFatura;
     }
 
-    public int getMelhorDiaCompra() {
-        return melhorDiaCompra;
+    public int getDiaFechamentoFatura() {
+        return diaFechamentoFatura;
     }
 
-    public void setMelhorDiaCompra(int melhorDiaCompra) {
-        this.melhorDiaCompra = melhorDiaCompra;
+    public void setDiaFechamentoFatura(int melhorDiaCompra) {
+        this.diaFechamentoFatura = melhorDiaCompra;
     }
 }

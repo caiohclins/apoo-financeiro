@@ -24,7 +24,7 @@ public class CartaoService {
         this.cartaoMapper = cartaoMapper;
     }
 
-    public List<CartaoResponseDTO> listarCartoes(String usuarioId) {
+    public List<CartaoResponseDTO> buscarCartaoes(String usuarioId) {
         return cartaoRepository.findByUsuarioId(usuarioId).stream()
                 .map(cartaoMapper::toDTO)
                 .collect(Collectors.toList());
@@ -36,7 +36,7 @@ public class CartaoService {
         return cartaoMapper.toDTO(cartaoRepository.save(cartao));
     }
 
-    public CartaoResponseDTO buscarCartao(Long id, String usuarioId) {
+    public CartaoResponseDTO buscarCartaoPorId(Long id, String usuarioId) {
         Cartao cartao = cartaoRepository.findById(id).orElse(null);
         if (cartao != null && !cartao.getUsuarioId().equals(usuarioId)) {
             throw new AcessoNegadoException("Acesso negado");
@@ -56,16 +56,15 @@ public class CartaoService {
         }
 
         cartao.setNome(dto.nome());
-        cartao.setNumero(dto.numero());
         cartao.setLimite(dto.limite());
         cartao.setDiaVencimentoFatura(dto.diaVencimentoFatura());
-        cartao.setMelhorDiaCompra(dto.melhorDiaCompra());
+        cartao.setDiaFechamentoFatura(dto.diaFechamentoFatura());
 
         cartaoRepository.save(cartao);
         return cartaoMapper.toDTO(cartao);
     }
 
-    public void deletarCartao(Long id, String usuarioId) {
+    public void excluirCartao(Long id, String usuarioId) {
         Cartao cartao = cartaoRepository.findById(id).orElse(null);
         if (cartao != null) {
             if (!cartao.getUsuarioId().equals(usuarioId)) {

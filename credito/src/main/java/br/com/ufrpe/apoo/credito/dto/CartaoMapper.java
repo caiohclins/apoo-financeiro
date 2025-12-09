@@ -10,10 +10,9 @@ public class CartaoMapper {
     public Cartao toEntity(CartaoRequestDTO dto) {
         Cartao cartao = new Cartao();
         cartao.setNome(dto.nome());
-        cartao.setNumero(dto.numero());
         cartao.setLimite(dto.limite());
         cartao.setDiaVencimentoFatura(dto.diaVencimentoFatura());
-        cartao.setMelhorDiaCompra(dto.melhorDiaCompra());
+        cartao.setDiaFechamentoFatura(dto.diaFechamentoFatura());
         return cartao;
     }
 
@@ -21,10 +20,9 @@ public class CartaoMapper {
         return new CartaoResponseDTO(
                 entity.getId(),
                 entity.getNome(),
-                entity.getNumero(),
                 entity.getLimite(),
                 entity.getUsuarioId(),
                 entity.getDiaVencimentoFatura(),
-                entity.getMelhorDiaCompra());
+                entity.getDiaFechamentoFatura());
     }
 }

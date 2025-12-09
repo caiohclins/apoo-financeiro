@@ -112,4 +112,3 @@ Nota: Keycloak estará em http://localhost:8080 (admin/admin para login inicial)
 
 ## Alterações da Fase Anterior
 
-Como esta é a Parte 2 construída sobre a fase anterior (não fornecida), todas as alterações são destacadas em um documento separado: alteracoes_fase_anterior.md. Neste documento, assumimos que a fase anterior era monolítica ou conceitual, e as mudanças incluem migração para microserviços, adição de containerização e integração de segurança. (Conteúdo detalhado no arquivo separado.)

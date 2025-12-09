@@ -23,12 +23,12 @@ public class FaturaController {
     }
 
     @GetMapping("/{cartaoId}")
-    public FaturaDTO gerarFatura(
+    public FaturaDTO gerarFaturaCartao(
             @PathVariable Long cartaoId,
             @RequestParam int mes,
             @RequestParam int ano,
             JwtAuthenticationToken token) {
-        return faturaService.gerarFatura(cartaoId, mes, ano, token.getToken().getSubject());
+        return faturaService.gerarFaturaCartao(cartaoId, mes, ano, token.getToken().getSubject());
     }
 
     @GetMapping

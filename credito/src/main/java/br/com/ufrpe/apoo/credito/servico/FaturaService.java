@@ -25,7 +25,7 @@ public class FaturaService {
         this.financeiroClient = financeiroClient;
     }
 
-    public FaturaDTO gerarFatura(Long cartaoId, int mes, int ano, String usuarioId) {
+    public FaturaDTO gerarFaturaCartao(Long cartaoId, int mes, int ano, String usuarioId) {
         Cartao cartao = cartaoRepository.findById(cartaoId)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Cartão não encontrado"));
 
@@ -54,10 +54,10 @@ public class FaturaService {
 
         LocalDate dataVencimento = LocalDate.of(ano, mes, diaVencimento);
 
-        // Usa melhor dia de compra como fechamento
-        int diaFechamento = cartao.getMelhorDiaCompra();
+        // Usa dia de fechamento do cartão
+        int diaFechamento = cartao.getDiaFechamentoFatura();
         if (diaFechamento <= 0 || diaFechamento > 31) {
-            diaFechamento = 1; // Default
+            diaFechamento = 1;
         }
         if (diaFechamento > ultimoDiaMes) {
             diaFechamento = ultimoDiaMes;
@@ -70,7 +70,7 @@ public class FaturaService {
 
     public List<FaturaDTO> listarFaturas(int mes, int ano, String usuarioId) {
         return cartaoRepository.findByUsuarioId(usuarioId).stream()
-                .map(cartao -> gerarFatura(cartao.getId(), mes, ano, usuarioId))
+                .map(cartao -> gerarFaturaCartao(cartao.getId(), mes, ano, usuarioId))
                 .collect(Collectors.toList());
     }
 }

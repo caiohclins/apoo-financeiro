@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufrpe.apoo.credito.dto.CartaoRequestDTO;
 import br.com.ufrpe.apoo.credito.dto.CartaoResponseDTO;
+import br.com.ufrpe.apoo.credito.servico.CartaoService;
 
 @RestController
 public class CartaoController {
 
-    private final br.com.ufrpe.apoo.credito.servico.CartaoService cartaoService;
+    private final CartaoService cartaoService;
 
-    public CartaoController(br.com.ufrpe.apoo.credito.servico.CartaoService cartaoService) {
+    public CartaoController(CartaoService cartaoService) {
         this.cartaoService = cartaoService;
     }
 
     @GetMapping("/cartoes")
-    public List<CartaoResponseDTO> listarCartoes(JwtAuthenticationToken token) {
-        return cartaoService.listarCartoes(token.getToken().getSubject());
+    public List<CartaoResponseDTO> buscarCartaoes(JwtAuthenticationToken token) {
+        return cartaoService.buscarCartaoes(token.getToken().getSubject());
     }
 
     @PostMapping("/cartoes")
@@ -41,13 +42,13 @@ public class CartaoController {
     }
 
     @GetMapping("/cartoes/{id}")
-    public CartaoResponseDTO buscarCartao(@PathVariable Long id,
+    public CartaoResponseDTO buscarCartaoPorId(@PathVariable Long id,
             JwtAuthenticationToken token) {
-        return cartaoService.buscarCartao(id, token.getToken().getSubject());
+        return cartaoService.buscarCartaoPorId(id, token.getToken().getSubject());
     }
 
     @DeleteMapping("/cartoes/{id}")
-    public void deletarCartao(@PathVariable Long id, JwtAuthenticationToken token) {
-        cartaoService.deletarCartao(id, token.getToken().getSubject());
+    public void excluirCartao(@PathVariable Long id, JwtAuthenticationToken token) {
+        cartaoService.excluirCartao(id, token.getToken().getSubject());
     }
 }

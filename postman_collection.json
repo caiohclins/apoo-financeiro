@@ -355,7 +355,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"diaVencimentoFatura\": 10,\n    \"melhorDiaCompra\": 3\n}",
+                            "raw": "{\n    \"nome\": \"Nubank\",\n    \"limite\": 5000.00,\n    \"diaVencimentoFatura\": 10,\n    \"diaFechamentoFatura\": 3\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -438,7 +438,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"nome\": \"Nubank Editado\",\n    \"limite\": 6000.00,\n    \"diaVencimentoFatura\": 15,\n    \"melhorDiaCompra\": 5\n}",
+                            "raw": "{\n    \"nome\": \"Nubank Editado\",\n    \"limite\": 6000.00,\n    \"diaVencimentoFatura\": 15,\n    \"diaFechamentoFatura\": 5\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

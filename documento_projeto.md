@@ -35,7 +35,7 @@ Este documento apresenta o relatório da Parte 2 do projeto para a disciplina de
 
 O sistema é composto por microserviços independentes que gerenciam aspectos específicos de um aplicativo financeiro pessoal. Os serviços de negócio interagem entre si para fornecer funcionalidades integradas, como gerenciamento de usuários, lançamentos financeiros e cartões de crédito com geração de faturas. Todos os serviços são protegidos por autenticação JWT via Keycloak.
 
-- **Serviço de Identidade (identidade):** Gerencia usuários, adaptando o provedor de identidade Keycloak. Inclui cadastro e login, persistindo dados locais no PostgreSQL.
+- **Serviço de Identidade (identidade):** Gerencia usuários, adaptando o provedor de identidade externo, nesse caso o Keycloak. Inclui cadastro e login, persistindo dados locais no PostgreSQL.
 - **Serviço Financeiro (financeiro):** Controla lançamentos (receitas/despesas) e tags de categorização, com persistência no PostgreSQL.
 - **Serviço de Crédito (credito):** Gerencia cartões de crédito e gera faturas dinâmicas, integrando-se ao serviço financeiro via Feign Client para obter Lançamentos.
 - **API Gateway (gateway):** Ponto de entrada único, roteando requisições para os serviços via load balancing (lb://).
@@ -101,17 +101,19 @@ Todos os microserviços e componentes (incluindo Keycloak e PostgreSQL) são exe
 
 3. Navegue até a raiz do projeto: cd apoo-financeiro
 
-4. Inicie os containers: docker-compose up -d
+4. Extraia o arquivo senhas.zip
 
-5. Aguarde os serviços subirem (verifique logs com docker-compose logs -f).
+5. Inicie os containers: docker-compose up -d
 
-6. Acesse o API Gateway em http://localhost:8888 (ex: http://localhost:8888/identidade/criar-usuario para cadastro).
+6. Aguarde os serviços subirem (verifique logs com docker-compose logs -f).
 
-7. Use a coleção Postman (postman_collection.json) para testar endpoints.
+7. Acesse o API Gateway em http://localhost:8888 (ex: http://localhost:8888/identidade/criar-usuario para cadastro).
 
-8. Para parar: docker-compose down
+8. Use a coleção Postman (postman_collection.json) para testar endpoints.
 
-Nota: Keycloak estará em http://localhost:8080 (admin/admin para login inicial).
+9. Para parar: docker-compose down
+
+Nota: Keycloak estará em http://localhost:8080 (keycloak_admin/keycloak_secure_pass para login inicial).
 ```
 
 ## Alterações da Fase Anterior

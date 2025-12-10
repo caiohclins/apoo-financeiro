@@ -25,3 +25,4 @@ replay_pid*
 
 *.env
 *.vscode
+.DS_Store

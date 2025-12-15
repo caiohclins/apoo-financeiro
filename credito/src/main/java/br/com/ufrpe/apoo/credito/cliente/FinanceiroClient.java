@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.ufrpe.apoo.credito.dto.LancamentoResponseDTO;
 
-@FeignClient(name = "financeiro", url = "${application.financeiro.url}")
+@FeignClient(name = "financeiro", path = "/financeiro")
 public interface FinanceiroClient {
 
     @GetMapping("/lancamentos/cartao/{cartaoId}")

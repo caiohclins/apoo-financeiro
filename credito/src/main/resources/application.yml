@@ -23,7 +23,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${DISCOVERY_HOST:localhost}:8761/eureka/
-
-application:
-  financeiro:
-    url: http://${FINANCEIRO_HOST:localhost}:8083/financeiro

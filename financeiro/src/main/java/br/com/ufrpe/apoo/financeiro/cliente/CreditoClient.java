@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.ufrpe.apoo.financeiro.dto.CartaoResponseDTO;
 
-@FeignClient(name = "credito", url = "${application.credito.url}")
+@FeignClient(name = "credito", path = "/credito")
 public interface CreditoClient {
     @GetMapping("/cartoes")
     List<CartaoResponseDTO> listarCartoes();
